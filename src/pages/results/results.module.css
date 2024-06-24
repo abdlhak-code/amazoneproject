@@ -1,0 +1,11 @@
+.Products_container{
+    display: grid;
+    grid-template-columns: repeat(aut-fill,);
+    max-width: 1450px;
+    margin: 100px auto 100px auto;
+    gap: 50px;
+    justify-items: center;
+}
+.Products_container section{
+    margin: 0 auto;
+}

@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+// import React from 'react'
+import react, { useEffect, useContext } from "react";
+import Routering from './Router.jsx'
+import { DataContext } from "./Components/Dataprovider/DataProvider.jsx"
+import { Type } from "./utility/actiontype.js";
+import {auth } from "./utility/firebase.js"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const [user, dispatch] = useContext(DataContext);
+	useEffect(() => {
+		auth.onAuthStateChanged((authUser) => {
+			if (authUser) {
+				// console.log(authUser);
+        dispatch({
+          type:Type.SET_USER,
+          user:authUser
+        })
+			}else{
+        dispatch({
+          type:Type.SET_USER,
+          user:null
+        })
+      }
+		});
+	}, []);
+
+  return <Routering />
+    
 }
 
-export default App;
+export default App
